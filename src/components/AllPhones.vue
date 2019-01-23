@@ -58,9 +58,16 @@ export default {
         this.phones = allMob;
         console.log(this.phones);
       });
+    console.log(this.$store.getters.isLogged);
+      this.$store.commit("change", false);
+    console.log(this.$store.getters.isLogged);
+
   },
   methods: {
     sendPhone: function(phone) {
+
+      // console.log(this.$store.getters.flavor);
+
       console.log(phone.mobileId);
       const mobId = phone.mobileId;
       this.$router.push("/detailPhone/" + mobId);

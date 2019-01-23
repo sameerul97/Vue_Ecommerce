@@ -43,10 +43,11 @@
               <router-link to="/userDashboard" class="nav-link">My Dashboard</router-link>
             </div>
           </li>
-          <li class="nav-item">
+          <li v-if="isLoggedIn" class="nav-item">
             <router-link to="/register" class="nav-link">Register</router-link>
           </li>
-          <li class="nav-item">
+          
+          <li class="nav-item" v-if="$store.getters.flavor">
             <router-link to="/login" class="nav-link">Login</router-link>
           </li>
           <li class="nav-item">
@@ -65,7 +66,17 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+    data() {
+    return {
+      isLoggedIn: true
+    };
+  },
+  mounted:function(){
+      this.$store.commit("change", true);
+      console.log("APP vue ")
+
+  }
 }
 </script>
 
