@@ -43,7 +43,7 @@ export default {
   },
   mounted() {
     // console.log(this.props.isLoggedIn);
-    console.log(this.$route.params.isLoggedInVar);
+    // console.log(this.$route.params.isLoggedInVar);
   },
   methods: {
     login: function() {
@@ -68,10 +68,13 @@ export default {
             localStorage.setItem("userId", myJson.userId);
             localStorage.setItem("name", myJson.name);
             localStorage.setItem("token", myJson.token);
+
             // var functionA = this.props.updateLink;
             // functionA();
             // this.setState({
             this.serverResponse = myJson.Message;
+            this.$store.commit("change", true);
+
             this.$router.push("/userDashboard");
             // });
             // this.setNoOfItemsInBasket();

@@ -46,7 +46,7 @@
           <li v-if="isLoggedIn" class="nav-item">
             <router-link to="/register" class="nav-link">Register</router-link>
           </li>
-          
+
           <li class="nav-item" v-if="$store.getters.flavor">
             <router-link to="/login" class="nav-link">Login</router-link>
           </li>
@@ -66,23 +66,58 @@
 
 <script>
 export default {
-  name: 'App',
-    data() {
+  name: "App",
+  data() {
     return {
       isLoggedIn: true
     };
   },
-  mounted:function(){
-      this.$store.commit("change", true);
-      console.log("APP vue ")
+  mounted: function() {
+    // this.$store.commit("change", true);
+    console.log("APP vue ");
 
+    console.log(localStorage.getItem("token"));
+    const token = localStorage.getItem("token");
+    console.log(token);
+    fetch("http://localhost:3000/checkToken", {
+      method: "GET", // *GET, POST, PUT, DELETE, etc.
+      mode: "cors", // no-cors, cors, *same-origin
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: "Bearer " + token
+      }
+    })
+      .then(function(response) {
+        return response.json();
+      })
+      // .then(response => response.json())
+      .then(myJson => {
+        console.log(myJson);
+        // localStorage.setItem("email", myJson.email)
+        // localStorage.setItem("userId", myJson.userId)
+        // localStorage.setItem("name", myJson.name)
+        // localStorage.setItem("token", myJson.token)
+        // this.setState({
+        //     name: myJson.name
+        // })
+        var data = myJson.Message;
+        console.log(data);
+        if (data === "true") {
+          this.$store.commit("change", data);
+        }else{
+          this.$store.commit("change", data);
+        }
+    console.log(this.$store.getters.isLogged);
+
+        return data;
+      });
+    // this.$store.commit("change", false);
   }
-}
+};
 </script>
 
 <style>
 #app {
-
   text-align: center;
 }
 .navbar {
