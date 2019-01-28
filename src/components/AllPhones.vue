@@ -58,9 +58,9 @@ export default {
         this.phones = allMob;
         console.log(this.phones);
       });
-    console.log(this.$store.getters.isLogged);
-      this.$store.commit("change", false);
-    console.log(this.$store.getters.isLogged);
+    // console.log(this.$store.getters.isLogged);
+    //   this.$store.commit("change", false);
+    // console.log(this.$store.getters.isLogged);
 
   },
   methods: {

@@ -10,7 +10,7 @@ import Login from '@/components/Login'
 import Register from '@/components/Register'
 import store from '../stores/store'
 import VueJwtDecode from 'vue-jwt-decode'
-
+import Basket from '@/components/Basket'
 // const About = { template: '<p>about page</p>' }
 
 Vue.use(Router)
@@ -27,7 +27,7 @@ let router = new Router({
     },
     {
       path: '/allPhones',
-      // name: 'HelloWorld',
+      name: 'AllPhone',
       component: AllPhones
     },
     {
@@ -41,8 +41,13 @@ let router = new Router({
       component: Register
     },
     {
+      path: '/basket',
+      name: 'basket',
+      component: Basket
+    },
+    {
       path: '/detailPhone/:mobileId',
-      // name: 'HelloWorld',
+      name: 'detailPhone',
       component: DetailPhone,
       props: true
     },
@@ -56,29 +61,9 @@ let router = new Router({
     }
   ]
 })
-const openRoutes = ['login', 'register', 'home'];
+const openRoutes = ['login', 'register', 'home', 'AllPhone','detailPhone'];
 
 router.beforeEach((to, from, next) => {
-  // const token = localStorage.getItem("token");
-  // console.log(VueJwtDecode.decode(localStorage.getItem("token")))
-
-  // try {
-  //   // { exp: 12903819203 }
-  //   const expiration = VueJwtDecode.decode(localStorage.getItem("token"));
-  //   console.log(expiration)
-  //   console.log(expiration.exp)
-  //   if (expiration.exp < new Date().getTime() / 1000) {
-  //     console.log("expired")
-  //     return false
-  //   }
-  //   else{
-  //     return true
-  //     console.log("not Expired")
-  //   }
-
-  // } catch (e) {
-  //   return false;
-  // }
 
   if (openRoutes.includes(to.name)) {
     console.log("its fine its only login")
@@ -91,12 +76,16 @@ router.beforeEach((to, from, next) => {
       console.log(expiration.exp)
       if (expiration.exp < new Date().getTime() / 1000) {
         console.log("expired")
+        store.commit("change", false);
+
         // return false
         next('/login')
       }
       else{
         // return true
-        console.log("not Expired")
+        console.log("not Expired");
+
+        // store.state.isLogged = false;
         next();
       }
   

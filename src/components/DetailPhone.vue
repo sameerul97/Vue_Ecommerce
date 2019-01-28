@@ -1,11 +1,11 @@
 <template>
   <div class="detailPageBody bg-light">
     <div class="container bg-white">
+      <div v-if="loggInMessage.length >0 ">
+        <div class="alert alert-success" role="alert">{{loggInMessage}}</div>
+      </div>
       <div class="row p-3">
         <div class="col-md-6 text-left">
-          <!-- <div *ngIf="success?.length >0 ;">
-            <div class="alert alert-success" role="alert">{{success}}</div>
-          </div>-->
           <div class="imagePlaceHolder text-center">
             <img v-bind:src="phone.imageUrl">
           </div>
@@ -47,6 +47,7 @@
             <button
               type="button"
               class="btn btn-primary font-weight-bold text-center text-uppercase shadow-lg"
+              v-on:click="addToBasket(phone)"
             >
               Add
               to basket
@@ -54,6 +55,7 @@
             <button
               type="button"
               class="btn btn-primary font-weight-bold text-center text-uppercase shadow-lg"
+              v-on:click="addToWishlist(phone)"
             >
               Add
               to wish list
@@ -112,13 +114,15 @@
 
 <script>
 export default {
-//   name: "About",
+  //   name: "About",
   data() {
     return {
       msg: "Vue Store",
       phone: [],
       selectedSizeVariant: "",
-      selectedColorVariant: ""
+      selectedColorVariant: "",
+      successState: "",
+      loggInMessage: ""
     };
   },
   mounted: function() {
@@ -136,27 +140,107 @@ export default {
         // this.setState({ mobilePhone: details });
         this.phone = details;
         console.log(this.phone);
-        // this.setState({
-        //   selectedColorVariant: this.state.mobilePhone.colourVariant["colour1"]
-        // });
-        // this.setState({
+
         this.selectedSizeVariant = details.sizeVariant["size1"];
         this.selectedColorVariant = details.colourVariant["colour1"];
-        // });
-        // if (this.state.mobilePhone.topSpec.os == "Android") {
-        //   this.setState({ android: true });
-        // } else {
-        //   this.setState({ android: false });
-        // }
-        // var tempColours = details.colourVariant;
-        // console.log(tempColours);
-        // for (let key in tempColours) {
-        //   let value = tempColours[key];
-        //   this.setState({ phoneDetails: details });
-        //   colorVariant.push(value);
-        // }
-        // this.setState({ colorVar: colorVariant });
+
       });
+  },
+  methods: {
+    addToBasket: function(phone) {
+      console.log(phone);
+      const token = localStorage.getItem("token");
+      const userId = localStorage.getItem("userId");
+      // console.log(token, phone);
+      if (userId != null) {
+        // Requires:  userId,mobileId,mobileName,mobilePrice,mobileImageUrl
+        // var userId = localStorage.getItem("userId")
+        var mobileId = phone.mobileId;
+        var mobileName = phone.mobileName;
+        var mobilePrice = phone.mobilePrice;
+        var mobileImageUrl = phone.imageUrl;
+        fetch("http://localhost:3000/basket", {
+          method: "POST", // *GET, POST, PUT, DELETE, etc.
+          mode: "cors", // no-cors, cors, *same-origin
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            Authorization: "Bearer " + token
+          },
+          body: new URLSearchParams(
+            "userId=" +
+              userId +
+              "&mobileId=" +
+              mobileId +
+              "&mobileName=" +
+              mobileName +
+              "&mobilePrice=" +
+              mobilePrice +
+              "&mobileImageUrl=" +
+              mobileImageUrl
+          ) // body data type must match "Content-Type" header
+        })
+          .then(function(response) {
+            return response.json();
+          })
+          .then(myJson => {
+            // console.log(myJson);
+            this.successState = true;
+            setTimeout(
+              function() {
+                this.successState = false;
+              }.bind(this),
+              3000
+            );
+          });
+      } else {
+        this.loggInMessage = "Please Login Before continuing";
+        setTimeout(
+          function() {
+            this.loggInMessage = "";
+          }.bind(this),
+          5000
+        );
+      }
+    },
+    addToWishlist: function(phone) {
+      var userId = localStorage.getItem("userId");
+      var token = localStorage.getItem("token");
+      if (userId != null) {
+        var mobileId = phone.mobileId;
+        fetch("http://localhost:3000/myWishedProduct", {
+          method: "POST", // *GET, POST, PUT, DELETE, etc.
+          mode: "cors", // no-cors, cors, *same-origin
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            Authorization: "Bearer " + token
+          },
+          body: new URLSearchParams(
+            "userId=" + userId + "&mobileId=" + mobileId
+          ) // body data type must match "Content-Type" header
+        })
+          .then(function(response) {
+            return response.json();
+          })
+          .then(myJson => {
+            // console.log(myJson);
+            this.successState = true;
+            setTimeout(
+              function() {
+                this.successState = false;
+              }.bind(this),
+              3000
+            );
+          });
+      } else {
+        this.loggInMessage = "Please Login Before continuing";
+        setTimeout(
+          function() {
+            this.loggInMessage = "";
+          }.bind(this),
+          5000
+        );
+      }
+    }
   }
 };
 </script>
