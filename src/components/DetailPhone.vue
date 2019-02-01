@@ -1,7 +1,7 @@
 <template>
   <div class="detailPageBody bg-light">
     <div class="container bg-white">
-      <div v-if="loggInMessage.length >0 ">
+      <div v-if="successState">
         <div class="alert alert-success" role="alert">{{loggInMessage}}</div>
       </div>
       <div class="row p-3">
@@ -122,7 +122,8 @@ export default {
       selectedSizeVariant: "",
       selectedColorVariant: "",
       successState: "",
-      loggInMessage: ""
+      loggInMessage: "",
+      tokenValidationBool: ""
     };
   },
   mounted: function() {
@@ -143,16 +144,35 @@ export default {
 
         this.selectedSizeVariant = details.sizeVariant["size1"];
         this.selectedColorVariant = details.colourVariant["colour1"];
-
       });
   },
   methods: {
+    checkTokenValidation: function() {
+      fetch("http://localhost:3000/checkToken", {
+        method: "GET", // *GET, POST, PUT, DELETE, etc.
+        mode: "cors", // no-cors, cors, *same-origin
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: "Bearer " + localStorage.getItem("token")
+        }
+      })
+        .then(function(response) {
+          return response.json();
+        })
+        .then(myJson => {
+          console.log(myJson);
+          this.tokenValidationBool = myJson.Message;
+          // console.log(data);
+          return this.tokenValidationBool;
+        });
+      return this.tokenValidationBool;
+    },
     addToBasket: function(phone) {
       console.log(phone);
       const token = localStorage.getItem("token");
       const userId = localStorage.getItem("userId");
-      // console.log(token, phone);
-      if (userId != null) {
+      // 5c17d556a930080b6032557b
+      if (this.checkTokenValidation()) {
         // Requires:  userId,mobileId,mobileName,mobilePrice,mobileImageUrl
         // var userId = localStorage.getItem("userId")
         var mobileId = phone.mobileId;
@@ -185,18 +205,22 @@ export default {
           .then(myJson => {
             // console.log(myJson);
             this.successState = true;
+            this.loggInMessage = "Success";
             setTimeout(
               function() {
                 this.successState = false;
+                this.loggInMessage = "";
               }.bind(this),
               3000
             );
           });
       } else {
+        this.successState = true;
         this.loggInMessage = "Please Login Before continuing";
         setTimeout(
           function() {
             this.loggInMessage = "";
+            this.successState = false;
           }.bind(this),
           5000
         );
@@ -205,7 +229,7 @@ export default {
     addToWishlist: function(phone) {
       var userId = localStorage.getItem("userId");
       var token = localStorage.getItem("token");
-      if (userId != null) {
+      if (this.checkTokenValidation()) {
         var mobileId = phone.mobileId;
         fetch("http://localhost:3000/myWishedProduct", {
           method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -224,18 +248,22 @@ export default {
           .then(myJson => {
             // console.log(myJson);
             this.successState = true;
+            this.loggInMessage = "Success";
             setTimeout(
               function() {
                 this.successState = false;
+                this.loggInMessage = "";
               }.bind(this),
               3000
             );
           });
       } else {
+        this.successState = true;
         this.loggInMessage = "Please Login Before continuing";
         setTimeout(
           function() {
             this.loggInMessage = "";
+            this.successState = false;
           }.bind(this),
           5000
         );
