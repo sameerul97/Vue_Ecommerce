@@ -11,6 +11,13 @@
           </div>
         </div>
         <div class="col-md-6">
+          <div class="mt-1 mb-1 text-left">
+            <span v-for="number in [1,2,3,4,5]" :key="number">
+              <span v-if="number <= avgRating" class="fa fa-star checked"></span>
+              <span v-else class="fa fa-star noStar"></span>
+            </span>
+            <span class="totalReviews">{{totalCustomerReviews}} customer reviews</span>
+          </div>
           <p class="font-weight-bold text-left text-uppercase">{{phone.mobileName}}</p>
 
           <div class="text-left mt-1">
@@ -108,6 +115,203 @@
           </tbody>
         </table>
       </div>
+      <div class="bg-light rounded text-center p-3 mb-5">
+        <p class="font-weight-light text-capitalize text-center" style="font-size:1.5rem;">Reviews</p>
+        <div class="row">
+          <div class="col-sm-4">
+            <p class="text-center">{{totalCustomerReviews}} Cutomer Reviews</p>
+            <div class="row rounded" style="padding:3px;margin:3px;">
+              <div class="side">
+                <div>5 star</div>
+              </div>
+              <div class="middle">
+                <div class="bar-container">
+                  <div class="bar-5" v-bind:style="{width: fiveStars}"></div>
+                </div>
+              </div>
+              <div class="side right">
+                <div>{{fiveStars}}</div>
+              </div>
+              <div class="side">
+                <div>4 star</div>
+              </div>
+              <div class="middle">
+                <div class="bar-container">
+                  <div class="bar-4" v-bind:style="{width: fourStars}"></div>
+                </div>
+              </div>
+              <div class="side right">
+                <div>{{fourStars}}</div>
+              </div>
+              <div class="side">
+                <div>3 star</div>
+              </div>
+              <div class="middle">
+                <div class="bar-container">
+                  <div class="bar-3" v-bind:style="{width: threeStars}"></div>
+                </div>
+              </div>
+              <div class="side right">
+                <div>{{threeStars}}</div>
+              </div>
+              <div class="side">
+                <div>2 star</div>
+              </div>
+              <div class="middle">
+                <div class="bar-container">
+                  <div class="bar-2" v-bind:style="{width: twoStars}"></div>
+                </div>
+              </div>
+              <div class="side right">
+                <div>{{twoStars}}</div>
+              </div>
+              <div class="side">
+                <div>1 star</div>
+              </div>
+              <div class="middle">
+                <div class="bar-container">
+                  <div class="bar-1" v-bind:style="{width: oneStars}"></div>
+                </div>
+              </div>
+              <div class="side right">
+                <div>{{oneStars}}</div>
+              </div>
+            </div>
+            <!-- <hr style="border:3px solid #f1f1f1"> -->
+            <hr style="margin-top: 22px!important;margin-bottom: 22px!important;">
+            <div class="text-left">
+              <p class="font-weight-bold">Review this product</p>
+              <p class="font-weight-normal">Share your thoughts with other customers</p>
+              <button
+                type="button"
+                class="btn btn-outline-info btn-block"
+                data-toggle="modal"
+                data-target="#exampleModalCenter"
+              >
+                Write
+                a customer review
+              </button>
+            </div>
+          </div>
+
+          <div class="col-sm-8">
+            <div v-if="totalCustomerReviews > 0">
+              <div
+                v-for="review of userReviews"
+                :key="review._id"
+                class="shadow bg-light rounded text-left"
+              >
+                <div class="border p-3 mb-5 mt-4">
+                  <div class="mt-1 mb-1 starRating">
+                    <span v-for="number in [1,2,3,4,5]" :key="number">
+                      <span v-if="number <= review.noOfStars" class="fa fa-star checked"></span>
+                      <span v-else class="fa fa-star noStar"></span>
+                    </span>
+                  </div>
+                  <p class="font-weight-bold">{{review.opinion}}</p>
+                  <p class="font-weight-normal">{{review.opinion}}</p>
+                  <div class="card-footer text-muted">
+                    <img
+                      src="https://images-eu.ssl-images-amazon.com/images/S/amazon-avatars/default._CR0,0,1024,1024_SX48_.png"
+                    >
+                    {{review.userName}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div v-else class="text-center">
+              <p>No Reviews</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="modal fade bd-example-modal-lg"
+        id="exampleModalCenter"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">Review</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="container text-left">
+                <div v-if="successState">
+                  <div class="alert alert-success" role="alert">{{loggInMessage}}</div>
+                </div>
+                <span>Stars</span>
+                <div>
+                  <fieldset class="rating">
+                    <input
+                      type="radio"
+                      id="star5"
+                      name="rating"
+                      value="5"
+                      v-on:click="setStars($event)"
+                    >
+                    <label class="full" for="star5"></label>
+                    <input
+                      type="radio"
+                      id="star4"
+                      name="rating"
+                      value="4"
+                      v-on:click="setStars($event)"
+                    >
+                    <label class="full" for="star4"></label>
+                    <input
+                      type="radio"
+                      id="star3"
+                      name="rating"
+                      value="3"
+                      v-on:click="setStars($event)"
+                    >
+                    <label class="full" for="star3"></label>
+                    <input
+                      type="radio"
+                      id="star2"
+                      name="rating"
+                      value="2"
+                      v-on:click="setStars($event)"
+                    >
+                    <label class="full" for="star2"></label>
+                    <input
+                      type="radio"
+                      id="star1"
+                      name="rating"
+                      value="1"
+                      v-on:click="setStars($event)"
+                    >
+                    <label class="full" for="star1"></label>
+                  </fieldset>
+                </div>
+                <hr class="customTopLine customBottonLine">
+                <span>Comment</span>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">With textarea</span>
+                  </div>
+                  <textarea
+                    class="form-control"
+                    v-model="userGivenOpinion"
+                    aria-label="With textarea"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-success" v-on:click="sendReview()">Post Review</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -123,7 +327,18 @@ export default {
       selectedColorVariant: "",
       successState: "",
       loggInMessage: "",
-      tokenValidationBool: ""
+      tokenValidationBool: "",
+      avgRating: 4,
+      totalCustomerReviews: 0,
+      oneStars: 0,
+      twoStars: 0,
+      threeStars: 0,
+      fourStars: 0,
+      fiveStars: 0,
+      userReviews: [],
+      reviewSuccess: "",
+      userGivenStar: "",
+      userGivenOpinion: ""
     };
   },
   mounted: function() {
@@ -139,6 +354,55 @@ export default {
         this.phone = details;
         this.selectedSizeVariant = details.sizeVariant["size1"];
         this.selectedColorVariant = details.colourVariant["colour1"];
+      });
+    fetch("http://localhost:3000/productReview/" + mobileIdToSearch)
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(jsonVal) {
+        return jsonVal;
+      })
+      .then(reviews => {
+        console.log(reviews);
+        if (reviews.reviews != "None") {
+          this.totalCustomerReviews = reviews.totalReviews;
+          this.userReviews = reviews.reviews;
+          this.avgRating = reviews.ratings;
+          this.oneStars = parseInt(
+            (parseInt(reviews.oneStars) / parseInt(reviews.totalReviews)) *
+              100 +
+              "%"
+          );
+          this.twoStars = parseInt(
+            (parseInt(reviews.twoStars) / parseInt(reviews.totalReviews)) *
+              100 +
+              "%"
+          );
+          this.threeStars = parseInt(
+            (parseInt(reviews.threeStars) / parseInt(reviews.totalReviews)) *
+              100 +
+              "%"
+          );
+          this.fourStars = parseInt(
+            (parseInt(reviews.fourStars) / parseInt(reviews.totalReviews)) *
+              100 +
+              "%"
+          );
+          this.fiveStars = parseInt(
+            (parseInt(reviews.fiveStars) / parseInt(reviews.totalReviews)) *
+              100 +
+              "%"
+          );
+          this.oneStars += "%";
+          this.twoStars += "%";
+          this.threeStars += "%";
+          this.fourStars += "%";
+          this.fiveStars += "%";
+        }
+        if (reviews.reviews == "None") {
+          this.totalReviewCount = 0;
+          this.userReviews = [];
+        }
       });
   },
   methods: {
@@ -216,6 +480,61 @@ export default {
           }
         });
     },
+    setStars: function(event) {
+      this.userGivenStar = event.target.value;
+    },
+    sendReview: function() {
+      const token = localStorage.getItem("token");
+      const userId = localStorage.getItem("userId");
+      fetch("http://localhost:3000/writeMyReview/", {
+        method: "POST", // *GET, POST, PUT, DELETE, etc.
+        mode: "cors", // no-cors, cors, *same-origin
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: "Bearer " + token
+        },
+        body: new URLSearchParams(
+          "userId=" +
+          userId +
+          "&userName=" +
+          localStorage.getItem("name") +
+          "&noOfStars=" +
+          this.userGivenStar +
+          "&opinionText=" +
+          this.userGivenOpinion + // body data type must match "Content-Type" header
+            "&mobileId=" +
+            this.phone.mobileId
+        ) // body data type must match "Content-Type" header
+      })
+        .then(function(response) {
+          return response.json();
+        })
+        .then(myJson => {
+          console.log(myJson);
+          if (myJson.Message != "success") {
+            this.successState = true;
+            this.loggInMessage =
+              myJson.Message + "! Please login before continuing";
+            setTimeout(
+              function() {
+                this.loggInMessage = "";
+                this.successState = false;
+              }.bind(this),
+              5000
+            );
+          } else {
+            this.successState = true;
+            this.loggInMessage = "Review posted";
+            setTimeout(
+              function() {
+                this.loggInMessage = "";
+                this.successState = false;
+              }.bind(this),
+              3000
+            );
+          }
+        });
+    },
     addToWishlist: function(phone) {
       var userId = localStorage.getItem("userId");
       var token = localStorage.getItem("token");
@@ -248,7 +567,7 @@ export default {
             );
           } else {
             this.successState = true;
-            this.loggInMessage =  myJson.Content ;
+            this.loggInMessage = myJson.Content;
             setTimeout(
               function() {
                 this.loggInMessage = "";
@@ -263,34 +582,132 @@ export default {
 };
 </script>
 <style>
-.imagePlaceHolder > img {
-  height: 400px !important;
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+.imagePlaceHolder > img{
+    height: 400px !important;
 }
 .btn-primary {
-  font-family: Raleway-SemiBold;
-  font-size: 18px;
-  color: rgba(58, 133, 191, 0.75);
-  letter-spacing: 1px;
-  line-height: 15px;
-  border: 2px solid rgba(58, 133, 191, 0.75);
-  border-radius: 40px;
-  background: transparent;
-  transition: all 0.3s ease 0s;
+    font-family: Raleway-SemiBold;
+    font-size: 18px;
+    color: rgba(58, 133, 191, 0.75);
+    letter-spacing: 1px;
+    line-height: 15px;
+    border: 2px solid rgba(58, 133, 191, 0.75);
+    border-radius: 40px;
+    background: transparent;
+    transition: all 0.3s ease 0s;
+  }
+  
+  .btn-primary:hover {
+    color: #FFF;
+    background: rgba(58, 133, 191, 0.75);
+    border: 2px solid rgba(58, 133, 191, 0.75);
+  }
+
+  i{
+    color: rgba(58, 133, 191, 0.75);
+  }
+    .noStar{
+    color: tan;
+  }
+  .checked {
+    color: orange;
+  }
+  .totalReviews{
+    font-weight: 300;
+  }
+  
+/* Three column layout */
+.side {
+  float: left;
+  width: 15%;
+  margin-top:10px;
 }
 
-.btn-primary:hover {
-  color: #fff;
-  background: rgba(58, 133, 191, 0.75);
-  border: 2px solid rgba(58, 133, 191, 0.75);
+.middle {
+  margin-top:19px;
+  float: left;
+  width: 70%;
 }
 
-i {
-  color: rgba(58, 133, 191, 0.75);
+/* Place text to the right */
+.right {
+  text-align: right;
 }
 
-.btn-outline-primary {
-  color: #42b983;
-
-  border-color: #42b983;
+/* The bar container */
+.bar-container {
+  width: 100%;
+  background-color: #f1f1f1;
+  text-align: center;
+  color: white;
 }
+
+/* Individual bars */
+.bar-5 {width: 60%; height: 18px; background-color: #4CAF50;}
+.bar-4 {width: 30%; height: 18px; background-color: #2196F3;}
+.bar-3 {width: 10%; height: 18px; background-color: #00bcd4;}
+.bar-2 {width: 4%; height: 18px; background-color: #ff9800;}
+.bar-1 {width: 15%; height: 18px; background-color: #f44336;}
+
+/* Responsive layout - make the columns stack on top of each other instead of next to each other */
+@media (max-width: 400px) {
+  .side, .middle {
+    width: 100%;
+  }
+  .right {
+    display: none;
+  }
+}
+.userIcon{
+  height:48px !important; 
+}
+
+.customLine{
+  margin-top: 22px!important;margin-bottom: 22px!important;
+}
+
+fieldset, label { margin: 0; padding: 0; }
+h1 { font-size: 1.5em; margin: 10px; }
+
+/****** Style Star Rating Widget *****/
+
+.rating { 
+  border: none;
+  float: left;
+}
+
+.rating > input { display: none; } 
+.rating > label:before { 
+  margin: 5px;
+  font-size: 1.25em;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f005";
+}
+
+.rating > .half:before { 
+  content: "\f089";
+  position: absolute;
+}
+
+.rating > label { 
+  color: #ddd; 
+ float: right; 
+}
+.customTopLine{
+  margin-top: 50px!important;
+}
+.customBottomLine{
+  margin-top: 26px!important;
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+
+
 </style>
