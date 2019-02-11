@@ -9,7 +9,7 @@
       <h3 class="font-italic font-weight-normal">My Basket</h3>
       <div class="row text-center">
         <div v-if="basketMessage.length >0" class="text-center">
-          <div class="display-4">{{basketMessage}}</div>
+          <div class="display-4 text-center">{{basketMessage}}</div>
         </div>
         <div class="col-6 col-md-4 pt-2 pb-2" v-for="order in basketItems" :key="order.mobileId">
           <div class="card">
@@ -25,7 +25,17 @@
                 </div>
               </div>
             </div>
-            <div class="card-footer w-100 text-muted">On Stock!</div>
+
+            <div class="card-footer text-muted mt-2">
+              <span class="float-left ml-1">
+                <a v-on:click="deleteItemInBasket(order)" class="text-muted">
+                  <span class>
+                    <i class="fas fa-trash-alt"></i>
+                  </span>
+                </a>
+              </span>
+              <span class="float-right">On Stock!</span>
+            </div>          
           </div>
         </div>
       </div>

@@ -127,21 +127,16 @@ export default {
     };
   },
   mounted: function() {
-    // console.log(this.$route.params.mobileId);
     var mobileIdToSearch = this.$route.params.mobileId;
     fetch("http://localhost:3000/getPhone/" + mobileIdToSearch)
       .then(function(response) {
         return response.json();
       })
-      // .then(response => response.json())
       .then(function(myJson) {
         return myJson.MobileData;
       })
       .then(details => {
-        // this.setState({ mobilePhone: details });
         this.phone = details;
-        console.log(this.phone);
-
         this.selectedSizeVariant = details.sizeVariant["size1"];
         this.selectedColorVariant = details.colourVariant["colour1"];
       });
@@ -160,114 +155,109 @@ export default {
           return response.json();
         })
         .then(myJson => {
-          console.log(myJson);
           this.tokenValidationBool = myJson.Message;
-          // console.log(data);
           return this.tokenValidationBool;
         });
       return this.tokenValidationBool;
     },
     addToBasket: function(phone) {
-      console.log(phone);
       const token = localStorage.getItem("token");
       const userId = localStorage.getItem("userId");
-      // 5c17d556a930080b6032557b
-      if (this.checkTokenValidation()) {
-        // Requires:  userId,mobileId,mobileName,mobilePrice,mobileImageUrl
-        // var userId = localStorage.getItem("userId")
-        var mobileId = phone.mobileId;
-        var mobileName = phone.mobileName;
-        var mobilePrice = phone.mobilePrice;
-        var mobileImageUrl = phone.imageUrl;
-        fetch("http://localhost:3000/basket", {
-          method: "POST", // *GET, POST, PUT, DELETE, etc.
-          mode: "cors", // no-cors, cors, *same-origin
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            Authorization: "Bearer " + token
-          },
-          body: new URLSearchParams(
-            "userId=" +
-              userId +
-              "&mobileId=" +
-              mobileId +
-              "&mobileName=" +
-              mobileName +
-              "&mobilePrice=" +
-              mobilePrice +
-              "&mobileImageUrl=" +
-              mobileImageUrl
-          ) // body data type must match "Content-Type" header
+      var mobileId = phone.mobileId;
+      var mobileName = phone.mobileName;
+      var mobilePrice = phone.mobilePrice;
+      var mobileImageUrl = phone.imageUrl;
+      fetch("http://localhost:3000/basket", {
+        method: "POST", // *GET, POST, PUT, DELETE, etc.
+        mode: "cors", // no-cors, cors, *same-origin
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: "Bearer " + token
+        },
+        body: new URLSearchParams(
+          "userId=" +
+            userId +
+            "&mobileId=" +
+            mobileId +
+            "&mobileName=" +
+            mobileName +
+            "&mobilePrice=" +
+            mobilePrice +
+            "&mobileImageUrl=" +
+            mobileImageUrl
+        ) // body data type must match "Content-Type" header
+      })
+        .then(function(response) {
+          return response.json();
         })
-          .then(function(response) {
-            return response.json();
-          })
-          .then(myJson => {
-            // console.log(myJson);
+        .then(myJson => {
+          console.log(myJson.Message);
+          if (myJson.Message != "success") {
             this.successState = true;
-            this.loggInMessage = "Success";
+            this.loggInMessage =
+              myJson.Message + "! Please login before continuing";
             setTimeout(
               function() {
-                this.successState = false;
                 this.loggInMessage = "";
+                this.successState = false;
+              }.bind(this),
+              5000
+            );
+          } else {
+            this.successState = true;
+            this.loggInMessage = "Successfully added to basket";
+            setTimeout(
+              function() {
+                this.loggInMessage = "";
+                this.successState = false;
               }.bind(this),
               3000
             );
-          });
-      } else {
-        this.successState = true;
-        this.loggInMessage = "Please Login Before continuing";
-        setTimeout(
-          function() {
-            this.loggInMessage = "";
-            this.successState = false;
-          }.bind(this),
-          5000
-        );
-      }
+          }
+        });
     },
     addToWishlist: function(phone) {
       var userId = localStorage.getItem("userId");
       var token = localStorage.getItem("token");
-      if (this.checkTokenValidation()) {
-        var mobileId = phone.mobileId;
-        fetch("http://localhost:3000/myWishedProduct", {
-          method: "POST", // *GET, POST, PUT, DELETE, etc.
-          mode: "cors", // no-cors, cors, *same-origin
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            Authorization: "Bearer " + token
-          },
-          body: new URLSearchParams(
-            "userId=" + userId + "&mobileId=" + mobileId
-          ) // body data type must match "Content-Type" header
+      var mobileId = phone.mobileId;
+
+      fetch("http://localhost:3000/myWishedProduct", {
+        method: "POST", // *GET, POST, PUT, DELETE, etc.
+        mode: "cors", // no-cors, cors, *same-origin
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: "Bearer " + token
+        },
+        body: new URLSearchParams("userId=" + userId + "&mobileId=" + mobileId) // body data type must match "Content-Type" header
+      })
+        .then(function(response) {
+          return response.json();
         })
-          .then(function(response) {
-            return response.json();
-          })
-          .then(myJson => {
-            // console.log(myJson);
+        .then(myJson => {
+          console.log(myJson.Message);
+          if (myJson.Message != "success") {
             this.successState = true;
-            this.loggInMessage = "Success";
+            this.loggInMessage =
+              myJson.Message + "! Please login before continuing";
             setTimeout(
               function() {
-                this.successState = false;
                 this.loggInMessage = "";
+                this.successState = false;
+              }.bind(this),
+              5000
+            );
+          } else {
+            this.successState = true;
+            this.loggInMessage =  myJson.Content ;
+            setTimeout(
+              function() {
+                this.loggInMessage = "";
+                this.successState = false;
               }.bind(this),
               3000
             );
-          });
-      } else {
-        this.successState = true;
-        this.loggInMessage = "Please Login Before continuing";
-        setTimeout(
-          function() {
-            this.loggInMessage = "";
-            this.successState = false;
-          }.bind(this),
-          5000
-        );
-      }
+          }
+        });
     }
   }
 };
