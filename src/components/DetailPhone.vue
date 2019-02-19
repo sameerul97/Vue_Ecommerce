@@ -102,19 +102,45 @@
             <p class="font-weight-light">{{phone.topSpec.display}}</p>
           </div>
         </div>
+              <div class="text-center">
+        <span class="text-center btn btn-link text-primary viewFullSpecLink" data-toggle="collapse" data-target="#collapseOne"
+          aria-expanded="false" aria-controls="collapseOne">VIEW FULL SPECIFICATIONS</span>
       </div>
+      </div>
+
+
       <div class="shadow p-3 mb-5 bg-light rounded border border-info">
-        <p class="font-weight-light text-capitalize text-center" style="font-size:1.5rem">Full Spec</p>
-        <table class="table table-striped">
-          <tbody>
-            <tr v-for="(value,index, key) in phone.fullSpec" :key="index">
+      <div class="accordion" id="accordionExample">
+        <div class="text-left">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+              <button class="btn btn-link " type="button" data-toggle="collapse" data-target="#collapseOne"
+                aria-expanded="false" aria-controls="collapseOne">
+                <i class="fas fa-chevron-circle-down fa-2x"> </i>
+              </button>
+              <span class="btn btn-link fullSpecLink" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
+                aria-controls="collapseOne">TECHNICAL SPECIFICATIONS</span>
+            </h5>
+          </div>
+        </div>
+
+        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+          <div class="card-body">
+            <p class="font-weight-light text-capitalize text-center" style="font-size:1.5rem;">Full Spec</p>
+            <table class="table table-striped">
+              <tbody>
+                <tr v-for="(value,index, key) in phone.fullSpec" :key="index">
               <th>{{key}}</th>
               <th scope="row">{{index}}</th>
               <td>{{value}}</td>
             </tr>
-          </tbody>
-        </table>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
+      </div>
+
       <div class="bg-light rounded text-center p-3 mb-5">
         <p
           class="font-weight-light text-capitalize text-center"
@@ -1022,12 +1048,18 @@ h1 {
 .customBottomLine {
   margin-top: 26px !important;
 }
-
 /***** CSS Magic to Highlight Stars on Hover *****/
-
 .rating > input:checked ~ label, /* show gold star when clicked */
 .rating:not(:checked) > label:hover, /* hover current star */
 .rating:not(:checked) > label:hover ~ label {
   color: #ffd700;
 } /* hover previous stars in list */
+.fullSpecLink{
+  text-decoration: none;
+  font-weight: 500;
+}
+.viewFullSpecLink{
+  text-decoration: underline;
+  font-weight: 200;
+}
 </style>
