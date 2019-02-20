@@ -232,7 +232,7 @@
             <p class="text-center">{{totalCustomerReviews}} Cutomer Reviews</p>
             <div class="row rounded" style="padding:3px;margin:3px;">
               <div class="side">
-                <div>5 star</div>
+                <div>5 <span class="fa fa-star"></span></div>
               </div>
               <div class="middle">
                 <div class="bar-container">
@@ -243,7 +243,7 @@
                 <div>{{fiveStars}}</div>
               </div>
               <div class="side">
-                <div>4 star</div>
+                <div>4 <span class="fa fa-star"></span></div>
               </div>
               <div class="middle">
                 <div class="bar-container">
@@ -254,7 +254,7 @@
                 <div>{{fourStars}}</div>
               </div>
               <div class="side">
-                <div>3 star</div>
+                <div>3 <span class="fa fa-star"></span></div>
               </div>
               <div class="middle">
                 <div class="bar-container">
@@ -265,7 +265,7 @@
                 <div>{{threeStars}}</div>
               </div>
               <div class="side">
-                <div>2 star</div>
+                <div>2 <span class="fa fa-star"></span></div>
               </div>
               <div class="middle">
                 <div class="bar-container">
@@ -276,7 +276,7 @@
                 <div>{{twoStars}}</div>
               </div>
               <div class="side">
-                <div>1 star</div>
+                <div>1 <span class="fa fa-star"></span></div>
               </div>
               <div class="middle">
                 <div class="bar-container">
