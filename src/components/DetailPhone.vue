@@ -102,43 +102,66 @@
             <p class="font-weight-light">{{phone.topSpec.display}}</p>
           </div>
         </div>
-              <div class="text-center">
-        <span class="text-center btn btn-link text-primary viewFullSpecLink" data-toggle="collapse" data-target="#collapseOne"
-          aria-expanded="false" aria-controls="collapseOne">VIEW FULL SPECIFICATIONS</span>
+        <div class="text-center">
+          <span
+            class="text-center btn btn-link text-primary viewFullSpecLink"
+            data-toggle="collapse"
+            data-target="#collapseOne"
+            aria-expanded="false"
+            aria-controls="collapseOne"
+          >VIEW FULL SPECIFICATIONS</span>
+        </div>
       </div>
-      </div>
-
 
       <div class="shadow p-3 mb-5 bg-light rounded border border-info">
-      <div class="accordion" id="accordionExample">
-        <div class="text-left">
-          <div class="card-header" id="headingOne">
-            <h5 class="mb-0">
-              <button class="btn btn-link " type="button" data-toggle="collapse" data-target="#collapseOne"
-                aria-expanded="false" aria-controls="collapseOne">
-                <i class="fas fa-chevron-circle-down fa-2x"> </i>
-              </button>
-              <span class="btn btn-link fullSpecLink" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
-                aria-controls="collapseOne">TECHNICAL SPECIFICATIONS</span>
-            </h5>
+        <div class="accordion" id="accordionExample">
+          <div class="text-left">
+            <div class="card-header" id="headingOne">
+              <h5 class="mb-0">
+                <button
+                  class="btn btn-link"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#collapseOne"
+                  aria-expanded="false"
+                  aria-controls="collapseOne"
+                >
+                  <i class="fas fa-chevron-circle-down fa-2x"></i>
+                </button>
+                <span
+                  class="btn btn-link fullSpecLink"
+                  data-toggle="collapse"
+                  data-target="#collapseOne"
+                  aria-expanded="false"
+                  aria-controls="collapseOne"
+                >TECHNICAL SPECIFICATIONS</span>
+              </h5>
+            </div>
           </div>
-        </div>
 
-        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-          <div class="card-body">
-            <p class="font-weight-light text-capitalize text-center" style="font-size:1.5rem;">Full Spec</p>
-            <table class="table table-striped">
-              <tbody>
-                <tr v-for="(value,index, key) in phone.fullSpec" :key="index">
-              <th>{{key}}</th>
-              <th scope="row">{{index}}</th>
-              <td>{{value}}</td>
-            </tr>
-              </tbody>
-            </table>
+          <div
+            id="collapseOne"
+            class="collapse"
+            aria-labelledby="headingOne"
+            data-parent="#accordionExample"
+          >
+            <div class="card-body">
+              <p
+                class="font-weight-light text-capitalize text-center"
+                style="font-size:1.5rem;"
+              >Full Spec</p>
+              <table class="table table-striped">
+                <tbody>
+                  <tr v-for="(value,index, key) in phone.fullSpec" :key="index">
+                    <th>{{key}}</th>
+                    <th scope="row">{{index}}</th>
+                    <td>{{value}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-      </div>
       </div>
 
       <div class="bg-light rounded text-center p-3 mb-5">
@@ -170,42 +193,68 @@
                       >Answer {{qandA.userName}} question</a>
                     </span>
                   </div>
-                  <div v-if="qandA.answers.length <= 2" >
-                  <div v-for="(qandA,index) in qandA.answers" :key="index" class="p-1 ml-3 mb-2 mt-2">
-                    <p class="font-weight-light">{{qandA.answer}}</p>
-                    <div class="card-footer text-muted">
-                      <img src="https://images-eu.ssl-images-amazon.com/images/S/amazon-avatars/default._CR0,0,1024,1024_SX48_.png">
-                      Answered by {{qandA.userName}}
+                  <div v-if="qandA.answers.length <= 2">
+                    <div
+                      v-for="(qandA,index) in qandA.answers"
+                      :key="index"
+                      class="p-1 ml-3 mb-2 mt-2"
+                    >
+                      <p class="font-weight-light">{{qandA.answer}}</p>
+                      <div class="card-footer text-muted">
+                        <img
+                          src="https://images-eu.ssl-images-amazon.com/images/S/amazon-avatars/default._CR0,0,1024,1024_SX48_.png"
+                        >
+                        Answered by {{qandA.userName}}
+                      </div>
                     </div>
                   </div>
-                  </div>
                   <div v-else>
-                  <div class="accordion" id="accordionExample">
-                    <h5 class="mb-0">
-                      <button class="btn btn-link " type="button" data-toggle="collapse" v-bind:data-target="'#demo'+ qandA._id"
-                        aria-expanded="false" aria-controls="collapseOne">
-                        <i class="fas fa-chevron-circle-down"></i>
-                      </button>
-                      <span class="btn btn-link fullSpecLink" data-toggle="collapse" v-bind:data-target="'#demo'+ qandA._id"
-                        aria-expanded="false" aria-controls="collapseOne">View answer</span>
-                    </h5>
-                    <div :id="'demo'+ qandA._id" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                      <div v-for="(qandA,index) in qandA.answers" :key="index" class="p-1 ml-3 mb-2 mt-2">
-                        <p class="font-weight-light">{{qandA.answer}}</p>
-                        <div class="card-footer text-muted">
-                          <img src="https://images-eu.ssl-images-amazon.com/images/S/amazon-avatars/default._CR0,0,1024,1024_SX48_.png">
-                          Answered by {{qandA.userName}}
+                    <div class="accordion" id="accordionExample">
+                      <h5 class="mb-0">
+                        <button
+                          class="btn btn-link"
+                          type="button"
+                          data-toggle="collapse"
+                          v-bind:data-target="'#demo'+ qandA._id"
+                          aria-expanded="false"
+                          aria-controls="collapseOne"
+                        >
+                          <i class="fas fa-chevron-circle-down"></i>
+                        </button>
+                        <span
+                          class="btn btn-link fullSpecLink"
+                          data-toggle="collapse"
+                          v-bind:data-target="'#demo'+ qandA._id"
+                          aria-expanded="false"
+                          aria-controls="collapseOne"
+                        >View answer</span>
+                      </h5>
+                      <div
+                        :id="'demo'+ qandA._id"
+                        class="collapse"
+                        aria-labelledby="headingOne"
+                        data-parent="#accordionExample"
+                      >
+                        <div
+                          v-for="(qandA,index) in qandA.answers"
+                          :key="index"
+                          class="p-1 ml-3 mb-2 mt-2"
+                        >
+                          <p class="font-weight-light">{{qandA.answer}}</p>
+                          <div class="card-footer text-muted">
+                            <img
+                              src="https://images-eu.ssl-images-amazon.com/images/S/amazon-avatars/default._CR0,0,1024,1024_SX48_.png"
+                            >
+                            Answered by {{qandA.userName}}
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  </div>
                 </div>
               </div>
             </div>
-            <div v-else>
-              No Question and answers! Be the first to Question
-              </div>
+            <div v-else>No Question and answers! Be the first to Question</div>
           </div>
 
           <div class="col-sm-4">
@@ -232,7 +281,9 @@
             <p class="text-center">{{totalCustomerReviews}} Cutomer Reviews</p>
             <div class="row rounded" style="padding:3px;margin:3px;">
               <div class="side">
-                <div>5 <span class="fa fa-star"></span></div>
+                <div>5
+                  <span class="fa fa-star"></span>
+                </div>
               </div>
               <div class="middle">
                 <div class="bar-container">
@@ -243,7 +294,9 @@
                 <div>{{fiveStars}}</div>
               </div>
               <div class="side">
-                <div>4 <span class="fa fa-star"></span></div>
+                <div>4
+                  <span class="fa fa-star"></span>
+                </div>
               </div>
               <div class="middle">
                 <div class="bar-container">
@@ -254,7 +307,9 @@
                 <div>{{fourStars}}</div>
               </div>
               <div class="side">
-                <div>3 <span class="fa fa-star"></span></div>
+                <div>3
+                  <span class="fa fa-star"></span>
+                </div>
               </div>
               <div class="middle">
                 <div class="bar-container">
@@ -265,7 +320,9 @@
                 <div>{{threeStars}}</div>
               </div>
               <div class="side">
-                <div>2 <span class="fa fa-star"></span></div>
+                <div>2
+                  <span class="fa fa-star"></span>
+                </div>
               </div>
               <div class="middle">
                 <div class="bar-container">
@@ -276,7 +333,9 @@
                 <div>{{twoStars}}</div>
               </div>
               <div class="side">
-                <div>1 <span class="fa fa-star"></span></div>
+                <div>1
+                  <span class="fa fa-star"></span>
+                </div>
               </div>
               <div class="middle">
                 <div class="bar-container">
@@ -416,83 +475,105 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" id="closeButton" data-dismiss="modal">Close</button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                id="closeButton"
+                data-dismiss="modal"
+              >Close</button>
               <button type="button" class="btn btn-success" v-on:click="sendReview()">Post Review</button>
             </div>
           </div>
         </div>
       </div>
-        <div class="modal fade bd-example-modal-lg" id="writingAnAnswer" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-  aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">Write answer</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="container text-left">
-          <div v-if="successState">
+      <div
+        class="modal fade bd-example-modal-lg"
+        id="writingAnAnswer"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">Write answer</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="container text-left">
+                <div v-if="successState">
                   <div class="alert alert-success" role="alert">{{loggInMessage}}</div>
                 </div>
-          <div>
-            {{question}}
-          </div>
-          <hr class="customTopLine customBottonLine">
-          <span>Enter your answer</span>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">With textarea</span>
+                <div>{{question}}</div>
+                <hr class="customTopLine customBottonLine">
+                <span>Enter your answer</span>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">With textarea</span>
+                  </div>
+                  <textarea class="form-control" v-model="myAnswer" aria-label="With textarea"></textarea>
+                </div>
+              </div>
             </div>
-            <textarea class="form-control" v-model="myAnswer" aria-label="With textarea"></textarea>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                id="AnswerModalcloseButton"
+                data-dismiss="modal"
+              >Close</button>
+              <button type="button" class="btn btn-success" v-on:click="sendAnswer()">Post Answer</button>
+            </div>
           </div>
         </div>
-
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" id="AnswerModalcloseButton" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-success" v-on:click="sendAnswer()">Post Review</button>
-      </div>
-      
-    </div>
-  </div>
-</div>
-<!-- Post quesion modal -->
-<div class="modal fade bd-example-modal-lg" id="postQuestion" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-  aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">Ask your question</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="container text-left">
-          <div v-if="successState">
+      <!-- Post quesion modal -->
+      <div
+        class="modal fade bd-example-modal-lg"
+        id="postQuestion"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">Ask your question</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="container text-left">
+                <div v-if="successState">
                   <div class="alert alert-success" role="alert">{{loggInMessage}}</div>
                 </div>
-          <hr class="customTopLine customBottonLine">
-          <span>Enter your question</span>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Question</span>
+                <hr class="customTopLine customBottonLine">
+                <span>Enter your question</span>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Question</span>
+                  </div>
+                  <textarea class="form-control" v-model="myQuestion" aria-label="With textarea"></textarea>
+                </div>
+              </div>
             </div>
-            <textarea class="form-control" v-model="myQuestion" aria-label="With textarea"></textarea>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                id="loadQuestionIntoModalCloseButton"
+                data-dismiss="modal"
+              >Close</button>
+              <button type="button" class="btn btn-success" v-on:click="sendQuestion()">Post Question</button>
+            </div>
           </div>
         </div>
-
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" id="loadQuestionIntoModalCloseButton" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-success" v-on:click="sendQuestion()">Post Review</button>
-      </div>
-    </div>
-  </div>
-</div>
     </div>
   </div>
 </template>
@@ -506,10 +587,10 @@ export default {
       phone: [],
       selectedSizeVariant: "",
       selectedColorVariant: "",
-      successState: "",
+      successState: false,
       loggInMessage: "",
       tokenValidationBool: "",
-      avgRating: 4,
+      avgRating: 0,
       totalCustomerReviews: 0,
       oneStars: 0,
       twoStars: 0,
@@ -520,15 +601,16 @@ export default {
       reviewSuccess: "",
       userGivenStar: "",
       userGivenOpinion: "",
-      questionAndAnswers: [], 
-      question : "",
-      selectedQuestion : "", 
+      questionAndAnswers: [],
+      question: "",
+      selectedQuestion: "",
       myAnswer: "",
-      myQuestion: "",
+      myQuestion: ""
     };
   },
   mounted: function() {
     this.reloadQuestionAndAnswerComp();
+    // this.successState = false;
   },
   methods: {
     checkTokenValidation: function() {
@@ -549,85 +631,85 @@ export default {
         });
       return this.tokenValidationBool;
     },
-    reloadQuestionAndAnswerComp: function(){
+    reloadQuestionAndAnswerComp: function() {
       this.questionAndAnswer = [];
-          var mobileIdToSearch = this.$route.params.mobileId;
-    fetch("http://localhost:3000/getPhone/" + mobileIdToSearch)
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(myJson) {
-        return myJson.MobileData;
-      })
-      .then(details => {
-        this.phone = details;
-        this.selectedSizeVariant = details.sizeVariant["size1"];
-        this.selectedColorVariant = details.colourVariant["colour1"];
-      });
-    fetch("http://localhost:3000/productReview/" + mobileIdToSearch)
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(jsonVal) {
-        return jsonVal;
-      })
-      .then(reviews => {
-        console.log(reviews);
-        if (reviews.reviews != "None") {
-          this.totalCustomerReviews = reviews.totalReviews;
-          this.userReviews = reviews.reviews;
-          this.avgRating = reviews.ratings;
-          this.oneStars = parseInt(
-            (parseInt(reviews.oneStars) / parseInt(reviews.totalReviews)) *
-              100 +
-              "%"
-          );
-          this.twoStars = parseInt(
-            (parseInt(reviews.twoStars) / parseInt(reviews.totalReviews)) *
-              100 +
-              "%"
-          );
-          this.threeStars = parseInt(
-            (parseInt(reviews.threeStars) / parseInt(reviews.totalReviews)) *
-              100 +
-              "%"
-          );
-          this.fourStars = parseInt(
-            (parseInt(reviews.fourStars) / parseInt(reviews.totalReviews)) *
-              100 +
-              "%"
-          );
-          this.fiveStars = parseInt(
-            (parseInt(reviews.fiveStars) / parseInt(reviews.totalReviews)) *
-              100 +
-              "%"
-          );
-          this.oneStars += "%";
-          this.twoStars += "%";
-          this.threeStars += "%";
-          this.fourStars += "%";
-          this.fiveStars += "%";
-        }
-        if (reviews.reviews == "None") {
-          this.totalReviewCount = 0;
-          this.userReviews = [];
-        }
-      });
-    fetch("http://localhost:3000/getQAndAs/" + mobileIdToSearch)
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(myJson) {
-        console.log(myJson);
-        return myJson.qAndAs;
-      })
-      .then(details => {
-        this.questionAndAnswers = details;
-      });
+      var mobileIdToSearch = this.$route.params.mobileId;
+      fetch("http://localhost:3000/getPhone/" + mobileIdToSearch)
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(myJson) {
+          return myJson.MobileData;
+        })
+        .then(details => {
+          this.phone = details;
+          this.selectedSizeVariant = details.sizeVariant["size1"];
+          this.selectedColorVariant = details.colourVariant["colour1"];
+        });
+      fetch("http://localhost:3000/productReview/" + mobileIdToSearch)
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(jsonVal) {
+          return jsonVal;
+        })
+        .then(reviews => {
+          console.log(reviews);
+          if (reviews.reviews != "None") {
+            this.totalCustomerReviews = reviews.totalReviews;
+            this.userReviews = reviews.reviews;
+            this.avgRating = reviews.ratings;
+            this.oneStars = parseInt(
+              (parseInt(reviews.oneStars) / parseInt(reviews.totalReviews)) *
+                100 +
+                "%"
+            );
+            this.twoStars = parseInt(
+              (parseInt(reviews.twoStars) / parseInt(reviews.totalReviews)) *
+                100 +
+                "%"
+            );
+            this.threeStars = parseInt(
+              (parseInt(reviews.threeStars) / parseInt(reviews.totalReviews)) *
+                100 +
+                "%"
+            );
+            this.fourStars = parseInt(
+              (parseInt(reviews.fourStars) / parseInt(reviews.totalReviews)) *
+                100 +
+                "%"
+            );
+            this.fiveStars = parseInt(
+              (parseInt(reviews.fiveStars) / parseInt(reviews.totalReviews)) *
+                100 +
+                "%"
+            );
+            this.oneStars += "%";
+            this.twoStars += "%";
+            this.threeStars += "%";
+            this.fourStars += "%";
+            this.fiveStars += "%";
+          }
+          if (reviews.reviews == "None") {
+            this.totalReviewCount = 0;
+            this.userReviews = [];
+          }
+        });
+      fetch("http://localhost:3000/getQAndAs/" + mobileIdToSearch)
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(myJson) {
+          console.log(myJson);
+          return myJson.qAndAs;
+        })
+        .then(details => {
+          this.questionAndAnswers = details;
+        });
     },
-    sendQuestion:function(){
-      console.log(this.myQuestion) // Samsung S8 or Iphone camera ? 
-            fetch("http://localhost:3000/postQuestion/", {
+    sendQuestion: function() {
+      console.log(this.myQuestion); // Samsung S8 or Iphone camera ?
+      fetch("http://localhost:3000/postQuestion/", {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         mode: "cors", // no-cors, cors, *same-origin
         headers: {
@@ -636,13 +718,13 @@ export default {
         },
         body: new URLSearchParams(
           "userId=" +
-          localStorage.getItem("userId") +
-          "&userName=" +
-          localStorage.getItem("name") +
-          "&question=" +
-          this.myQuestion +
-          "&mobileId=" +
-          this.phone.mobileId
+            localStorage.getItem("userId") +
+            "&userName=" +
+            localStorage.getItem("name") +
+            "&question=" +
+            this.myQuestion +
+            "&mobileId=" +
+            this.phone.mobileId
         ) // body data type must match "Content-Type" header
       })
         .then(function(response) {
@@ -658,8 +740,10 @@ export default {
               function() {
                 this.loggInMessage = "";
                 this.successState = false;
-                 var element = document.getElementById("loadQuestionIntoModalCloseButton");
-                 element.click();
+                var element = document.getElementById(
+                  "loadQuestionIntoModalCloseButton"
+                );
+                element.click();
               }.bind(this),
               5000
             );
@@ -670,8 +754,10 @@ export default {
               function() {
                 this.loggInMessage = "";
                 this.successState = false;
-                 var element = document.getElementById("loadQuestionIntoModalCloseButton") ;
-                  element.click();
+                var element = document.getElementById(
+                  "loadQuestionIntoModalCloseButton"
+                );
+                element.click();
                 this.reloadQuestionAndAnswerComp();
               }.bind(this),
               3000
@@ -681,10 +767,10 @@ export default {
     },
     loadQuestionIntoModal: function(qandA) {
       console.log(qandA);
-      this.question= qandA.question;
-      this.selectedQuestion=qandA;
+      this.question = qandA.question;
+      this.selectedQuestion = qandA;
     },
-    sendAnswer:function(){
+    sendAnswer: function() {
       console.log(this.myAnswer);
       fetch("http://localhost:3000/postAnswer/", {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -695,13 +781,13 @@ export default {
         },
         body: new URLSearchParams(
           "userId=" +
-          localStorage.getItem("userId") +
-          "&userName=" +
-          localStorage.getItem("name") +
-          "&answer=" +
-          this.myAnswer +
-          "&questionId=" +
-          this.selectedQuestion._id
+            localStorage.getItem("userId") +
+            "&userName=" +
+            localStorage.getItem("name") +
+            "&answer=" +
+            this.myAnswer +
+            "&questionId=" +
+            this.selectedQuestion._id
         ) // body data type must match "Content-Type" header
       })
         .then(function(response) {
@@ -842,8 +928,8 @@ export default {
                 this.loggInMessage = "";
                 this.successState = false;
                 var element = document.getElementById("closeButton");
-        element.click();
-        this.reloadQuestionAndAnswerComp();
+                element.click();
+                this.reloadQuestionAndAnswerComp();
               }.bind(this),
               3000
             );
@@ -1054,11 +1140,11 @@ h1 {
 .rating:not(:checked) > label:hover ~ label {
   color: #ffd700;
 } /* hover previous stars in list */
-.fullSpecLink{
+.fullSpecLink {
   text-decoration: none;
   font-weight: 500;
 }
-.viewFullSpecLink{
+.viewFullSpecLink {
   text-decoration: underline;
   font-weight: 200;
 }

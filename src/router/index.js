@@ -66,7 +66,7 @@ const openRoutes = ['login', 'register', 'home', 'AllPhone','detailPhone'];
 router.beforeEach((to, from, next) => {
 
   if (openRoutes.includes(to.name)) {
-    console.log("its fine its only login")
+    // console.log("its fine its only login")
     next()
   } else if (localStorage.getItem("token")!= null) {
     try {
@@ -95,7 +95,7 @@ router.beforeEach((to, from, next) => {
     // console.log("User Logged in")
     // next()
   } else {
-    console.log("User NOT Logged in")
+    // console.log("User NOT Logged in")
     next('/login')
   }
 
